@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar-1",
+      "description": "A portrait of a man with a kind smile",
+      "imageUrl": "https://images.unsplash.com/photo-1583195763986-0231686dcd43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAwNzk1MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "A portrait of a woman looking confident",
+      "imageUrl": "https://images.unsplash.com/photo-1557053908-4793c484d06f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d29tYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAxMTI1ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "user-avatar-3",
+      "description": "A portrait of a man with tattoos",
+      "imageUrl": "https://images.unsplash.com/photo-1621761484409-ce4ee9b21dfc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dGF0dG9vZWQlMjBtYW58ZW58MHx8fHwxNzcwMTkzNjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tattooed man"
+    },
+    {
+      "id": "user-avatar-4",
+      "description": "A portrait of a woman with colorful hair",
+      "imageUrl": "https://images.unsplash.com/photo-1648213037568-2c9c6d267e25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2xvcmZ1bCUyMGhhaXJ8ZW58MHx8fHwxNzcwMTU2ODA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "colorful hair"
+    },
+    {
+      "id": "hero-bg",
+      "description": "Abstract calming purple background",
+      "imageUrl": "https://images.unsplash.com/photo-1637825891028-564f672aa42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHB1cnBsZXxlbnwwfHx8fDE3NzAxMzI5Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract purple"
+    }
+  ]
 }
