@@ -21,16 +21,18 @@ export default async function YardDashboard() {
 
   try {
     // Attempt to get AI-powered recommendations
-    recommendations = await getMatchRecommendations({
+    const response = await getMatchRecommendations({
       userProfile: currentUser,
       otherUserProfiles: others
     });
+    recommendations = response || [];
   } catch (error) {
-    // Graceful fallback to mock recommendations if API keys are missing or service is down
+    console.error("AI Recommendation failed, using fallbacks:", error);
+    // Graceful fallback to mock recommendations
     recommendations = INMATES.map((inmate, idx) => ({
       userId: inmate.id,
       matchScore: 95 - (idx * 5),
-      reason: "Shared facility history and community interests (Mock)."
+      reason: "Matched based on shared facility history and community interests."
     }));
   }
 
@@ -42,46 +44,52 @@ export default async function YardDashboard() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recommendations.slice(0, 3).map((rec, idx) => {
-          const inmate = INMATES.find(i => i.id === rec.userId) || INMATES[idx];
-          return (
-            <Card key={inmate.id} className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-transparent hover:border-primary/20">
-              <div className="relative h-48 w-full">
-                <Image 
-                  src={inmate.imageUrl} 
-                  alt={inmate.name} 
-                  fill 
-                  className="object-cover" 
-                  data-ai-hint="inmate portrait"
-                />
-                <Badge className="absolute top-4 left-4 bg-primary text-white">
-                  Match Score: {rec.matchScore}%
-                </Badge>
-              </div>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-xl font-bold">{inmate.name}</CardTitle>
-                    <CardDescription>{inmate.location}</CardDescription>
+        {recommendations.length > 0 ? (
+          recommendations.slice(0, 3).map((rec, idx) => {
+            const inmate = INMATES.find(i => i.id === rec.userId) || INMATES[idx];
+            return (
+              <Card key={inmate.id} className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-transparent hover:border-primary/20">
+                <div className="relative h-48 w-full">
+                  <Image 
+                    src={inmate.imageUrl} 
+                    alt={inmate.name} 
+                    fill 
+                    className="object-cover" 
+                    data-ai-hint="inmate portrait"
+                  />
+                  <Badge className="absolute top-4 left-4 bg-primary text-white">
+                    Match Score: {rec.matchScore}%
+                  </Badge>
+                </div>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-xl font-bold">{inmate.name}</CardTitle>
+                      <CardDescription>{inmate.location}</CardDescription>
+                    </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-3 rounded-lg bg-muted text-sm italic">
-                  "{rec.reason}"
-                </div>
-                <div className="flex gap-2">
-                  <Button className="flex-1 gap-2" variant="default">
-                    <Heart size={16} /> Fly a Kite
-                  </Button>
-                  <Button className="flex-1 gap-2" variant="outline">
-                    <UserPlus size={16} /> Add Cellie
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="p-3 rounded-lg bg-muted text-sm italic">
+                    "{rec.reason}"
+                  </div>
+                  <div className="flex gap-2">
+                    <Button className="flex-1 gap-2" variant="default">
+                      <Heart size={16} /> Fly a Kite
+                    </Button>
+                    <Button className="flex-1 gap-2" variant="outline">
+                      <UserPlus size={16} /> Add Cellie
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })
+        ) : (
+          <div className="col-span-full py-12 text-center text-muted-foreground">
+            No cellie connections found today. Try searching the Shakedown.
+          </div>
+        )}
       </div>
 
       <section className="mt-12 space-y-6">

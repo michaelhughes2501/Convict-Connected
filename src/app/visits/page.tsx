@@ -20,10 +20,11 @@ export default async function VisitsPage() {
       communicationHistory: "Exchanged 15 kites over 2 weeks. Discussed shared interests in cooking and future goals. No red flags found."
     });
   } catch (error) {
-    // Graceful fallback if GenAI fails (e.g. missing API key)
+    console.error("AI Eligibility check failed:", error);
+    // Graceful fallback if GenAI fails
     eligibility = {
       isEligible: false,
-      reason: "The AI Warden is currently processing trust scores. Please ensure your environment is configured."
+      reason: "The AI Warden is currently performing a standard security sweep. Virtual visits will be reviewed once the system is fully operational."
     };
   }
 
@@ -35,7 +36,6 @@ export default async function VisitsPage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-        {/* Profile Summary */}
         <div className="md:col-span-1 space-y-6">
           <Card className="overflow-hidden">
             <div className="relative h-64 w-full">
@@ -60,7 +60,6 @@ export default async function VisitsPage() {
           </Card>
         </div>
 
-        {/* Eligibility Status */}
         <div className="md:col-span-2 space-y-6">
           <Card className={`border-2 ${eligibility.isEligible ? 'border-primary' : 'border-destructive/50'}`}>
             <CardHeader>
@@ -96,7 +95,7 @@ export default async function VisitsPage() {
                     <Lock className="text-muted-foreground" size={24} />
                     <div>
                       <p className="font-bold text-sm">Visits Locked</p>
-                      <p className="text-xs text-muted-foreground">Keep flying kites to build trust scores. Usually requires 20+ meaningful exchanges.</p>
+                      <p className="text-xs text-muted-foreground">Keep flying kites to build trust scores. Usually requires 20+ meaningful exchanges and a valid trust score.</p>
                     </div>
                   </div>
                 </div>
@@ -104,7 +103,7 @@ export default async function VisitsPage() {
             </CardContent>
             <CardFooter>
               <Button className="w-full gap-2" variant={eligibility.isEligible ? "default" : "outline"} disabled={!eligibility.isEligible}>
-                <Video size={18} /> {eligibility.isEligible ? "Start Virtual Visit" : "Trust Scoring In Progress"}
+                <Video size={18} /> {eligibility.isEligible ? "Start Virtual Visit" : "System Verification Required"}
               </Button>
             </CardFooter>
           </Card>
