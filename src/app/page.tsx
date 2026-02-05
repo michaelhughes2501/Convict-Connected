@@ -4,7 +4,7 @@ import { INMATES } from "@/lib/mock-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Heart, UserPlus, LayoutDashboard } from "lucide-react";
+import { ShieldCheck, Heart, UserPlus, LayoutDashboard, AlertCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,17 +18,19 @@ export default async function YardDashboard() {
   const others = INMATES.map(i => ({ background: i.background, interests: i.interests }));
   
   let recommendations: MatchRecommendationOutput = [];
+  let aiError = false;
 
   try {
-    // Attempt to get AI-powered recommendations
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("Missing API Key");
+    }
     const response = await getMatchRecommendations({
       userProfile: currentUser,
       otherUserProfiles: others
     });
     recommendations = response || [];
   } catch (error) {
-    console.error("AI Recommendation failed, using fallbacks:", error);
-    // Graceful fallback to mock recommendations
+    aiError = true;
     recommendations = INMATES.map((inmate, idx) => ({
       userId: inmate.id,
       matchScore: 95 - (idx * 5),
@@ -41,6 +43,12 @@ export default async function YardDashboard() {
       <header className="flex flex-col gap-2">
         <h1 className="text-4xl font-headline font-bold text-foreground">Welcome back to the Yard</h1>
         <p className="text-muted-foreground text-lg">Your top cellie connections for today.</p>
+        {aiError && (
+          <div className="flex items-center gap-2 text-xs text-amber-600 bg-amber-50 p-2 rounded border border-amber-200 w-fit">
+            <AlertCircle size={14} /> 
+            AI matches are currently simulated. Configure GEMINI_API_KEY for real-time recommendations.
+          </div>
+        )}
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
