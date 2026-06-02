@@ -10,7 +10,7 @@ The product blueprint (vision, features, style guide) lives in [`docs/blueprint.
 
 ## Tech stack
 
-- **Framework**: Next.js 15 (App Router, Turbopack), React 18, TypeScript 5
+- **Framework**: Next.js 15 (App Router, Turbopack), React 19, TypeScript 5
 - **Styling**: Tailwind CSS 3 + shadcn/ui (Radix primitives), `lucide-react` icons, `tailwindcss-animate`
 - **Forms / validation**: `react-hook-form` + `zod` (`@hookform/resolvers/zod`)
 - **AI**: Genkit 1.x with `@genkit-ai/google-genai` — model `googleai/gemini-2.5-flash`
