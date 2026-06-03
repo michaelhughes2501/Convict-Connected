@@ -53,7 +53,7 @@ export default function ReleasePage() {
                 </div>
                 <CardDescription className="mt-1">{res.desc}</CardDescription>
               </div>
-            </header>
+            </CardHeader>
             <CardContent className="flex justify-end">
               <Button variant="ghost" className="gap-2 text-primary">
                 Learn More <ExternalLink size={14} />
