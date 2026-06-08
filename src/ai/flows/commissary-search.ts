@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { genkit } from '@/ai/genkit';
+import { ai } from '@/ai/genkit';
 
 /**
  * Commissary Search Flow
@@ -8,7 +8,7 @@ import { genkit } from '@/ai/genkit';
  * a natural language interface. Consistent with repository guidelines,
  * it uses dignified and supportive language.
  */
-export const commissarySearch = genkit.defineFlow(
+export const commissarySearch = ai.defineFlow(
   {
     name: 'commissarySearch',
     inputSchema: z.object({
@@ -26,7 +26,7 @@ export const commissarySearch = genkit.defineFlow(
     }),
   },
   async (input) => {
-    const response = await genkit.generate({
+    const response = await ai.generate({
       prompt: `
         You are a community navigator for 'Convict Connected'. 
         A Resident is searching the 'Commissary' (our resource hub) for help with: "${input.query}".

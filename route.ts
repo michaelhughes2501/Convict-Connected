@@ -1,23 +1,36 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { z } from 'zod'
+
+const contactSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email address'),
+  subject: z.string().min(1, 'Subject is required'),
+  message: z.string().min(1, 'Message is required'),
+})
+
+// Initialize transporter once for potential reuse across requests
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+})
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json()
+    const body = await request.json()
+    const validation = contactSchema.safeParse(body)
 
-    // Basic validation
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ message: 'All fields are required.' }, { status: 400 })
+    if (!validation.success) {
+      return NextResponse.json(
+        { message: 'Validation failed', errors: validation.error.flatten().fieldErrors },
+        { status: 400 }
+      )
     }
 
-    // Create a Nodemailer transporter using environment variables
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    })
+    const { name, email, subject, message } = validation.data
 
     // Email options
     const mailOptions = {
@@ -37,10 +50,10 @@ export async function POST(request: Request) {
     await transporter.sendMail(mailOptions)
 
     return NextResponse.json({ message: 'Message sent successfully!' }, { status: 200 })
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error sending email:', error)
     return NextResponse.json(
-      { message: 'Failed to send message.', error: error.message },
+      { message: 'Failed to send message.' },
       { status: 500 }
     )
   }
