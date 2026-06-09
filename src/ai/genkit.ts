@@ -1,7 +1,11 @@
-import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/google-genai';
+import { genkit } from 'genkit';
+import { googleAI, gemini15Flash } from '@genkit-ai/google-genai';
+
+// Only initialize Google AI plugin when API key is present
+const plugins = process.env.GOOGLE_GENAI_API_KEY ? [googleAI()] : [];
 
 export const ai = genkit({
-  plugins: [googleAI()],
-  model: 'googleai/gemini-2.5-flash',
+  plugins,
+  // Setting the default model to 1.5 Flash (stable and fast)
+  model: gemini15Flash, 
 });

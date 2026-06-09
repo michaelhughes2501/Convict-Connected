@@ -1,49 +1,30 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 264 20% 96%;
-    --foreground: 264 40% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 264 40% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 264 40% 10%;
-    --primary: 265 22% 66%;
-    --primary-foreground: 264 20% 10%;
-    --secondary: 331 22% 66%;
-    --secondary-foreground: 331 40% 10%;
-    --muted: 264 10% 90%;
-    --muted-foreground: 264 20% 40%;
-    --accent: 331 22% 66%;
-    --accent-foreground: 331 40% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 264 15% 85%;
-    --input: 264 15% 85%;
-    --ring: 265 22% 66%;
-    --radius: 0.75rem;
-    --chart-1: 265 22% 66%;
-    --chart-2: 331 22% 66%;
-    --sidebar-background: 264 20% 94%;
-    --sidebar-foreground: 264 40% 20%;
-    --sidebar-primary: 265 22% 66%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 331 22% 85%;
-    --sidebar-accent-foreground: 331 40% 20%;
-    --sidebar-border: 264 15% 85%;
-    --sidebar-ring: 265 22% 66%;
-  }
+:root {
+  --primary: #2563eb;
+  --accent: #14b8a6;
+  --background: #f8fafc;
+  --dark: #0f172a;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
+body {
+  background: var(--background);
+  color: #111827;
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.sidebar-gradient {
+  background: linear-gradient(180deg,#0f172a,#1e293b);
 }
