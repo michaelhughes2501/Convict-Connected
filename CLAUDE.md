@@ -16,7 +16,7 @@ The product blueprint (vision, features, style guide) lives in [`docs/blueprint.
 - **AI**: Genkit 1.x with `@genkit-ai/google-genai` — model `googleai/gemini-2.5-flash`
 - **Hosting**: Firebase App Hosting (`apphosting.yaml`)
 - **Charts / extras**: Recharts, Embla Carousel
-- **Patches**: `patch-package` (run via postinstall if patches exist)
+- **Patches**: `patch-package` is a dependency but not wired into a postinstall script; run `npx patch-package` manually if you introduce a `patches/` directory.
 
 ## Commands
 

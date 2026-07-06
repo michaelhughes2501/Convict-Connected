@@ -78,11 +78,7 @@ interface ResourceCardProps {
 function ResourceCard({ resource }: ResourceCardProps) {
   const Icon = resource.icon;
   return (
-    <Card
-      className="group hover:bg-primary/5 transition-colors border-2 hover:border-primary/20"
-      role="region"
-      aria-label={resource.title}
-    >
+    <Card className="group hover:bg-primary/5 transition-colors border-2 hover:border-primary/20">
       <CardHeader className="flex flex-row items-center gap-4">
         <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
           <Icon className="text-primary" size={28} aria-hidden="true" />
@@ -90,7 +86,7 @@ function ResourceCard({ resource }: ResourceCardProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <CardTitle>{resource.title}</CardTitle>
-            <Badge variant="secondary" className="text-[10px]">
+            <Badge variant="secondary" className="text-xs">
               {resource.category}
             </Badge>
           </div>
