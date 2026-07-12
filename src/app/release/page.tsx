@@ -1,85 +1,129 @@
-
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Home, Briefcase, GraduationCap, Scale, ExternalLink, HeartHandshake } from "lucide-react";
+import {
+  Briefcase,
+  ExternalLink,
+  Home,
+  HeartPulse,
+  GraduationCap,
+  Scale,
+  Wallet,
+  UtensilsCrossed,
+} from "lucide-react";
 
 const resources = [
   {
+    id: "fair-chance-jobs",
     title: "Fair Chance Job Board",
-    desc: "Companies committed to hiring former offenders.",
+    desc: "Companies committed to hiring returning citizens.",
     icon: Briefcase,
-    category: "Jobs"
+    category: "Jobs",
+    link: "https://example.com/jobs",
   },
   {
-    title: "Second Chance Housing",
-    desc: "Transitional living and halfway houses in your area.",
+    id: "reentry-housing",
+    title: "Reentry Housing Directory",
+    desc: "Transitional and long-term housing programs.",
     icon: Home,
-    category: "Housing"
+    category: "Housing",
+    link: "https://example.com/housing",
   },
   {
-    title: "Legal Re-entry Support",
-    desc: "Pro-bono legal services for expungement and rights.",
-    icon: Scale,
-    category: "Legal"
+    id: "mental-health",
+    title: "Mental Health & Counseling",
+    desc: "Free and sliding-scale therapy and peer support.",
+    icon: HeartPulse,
+    category: "Health",
+    link: "https://example.com/mental-health",
   },
   {
-    title: "Skill Up Certification",
-    desc: "Free online courses for high-demand trades.",
+    id: "education",
+    title: "Education & Vocational Training",
+    desc: "GED, certification, and college programs.",
     icon: GraduationCap,
-    category: "Education"
-  }
+    category: "Education",
+    link: "https://example.com/education",
+  },
+  {
+    id: "legal-aid",
+    title: "Legal Aid & Expungement",
+    desc: "Record clearing and reentry legal help.",
+    icon: Scale,
+    category: "Legal",
+    link: "https://example.com/legal",
+  },
+  {
+    id: "financial-services",
+    title: "Financial Services",
+    desc: "Bank accounts and credit building for returning citizens.",
+    icon: Wallet,
+    category: "Finance",
+    link: "https://example.com/finance",
+  },
+  {
+    id: "food-security",
+    title: "Food & Basic Needs",
+    desc: "SNAP, food banks, and clothing assistance.",
+    icon: UtensilsCrossed,
+    category: "Basics",
+    link: "https://example.com/food",
+  },
 ];
+
+interface ResourceCardProps {
+  resource: typeof resources[0];
+}
+
+function ResourceCard({ resource }: ResourceCardProps) {
+  const Icon = resource.icon;
+  return (
+    <Card className="group hover:bg-primary/5 transition-colors border-2 hover:border-primary/20">
+      <CardHeader className="flex flex-row items-center gap-4">
+        <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+          <Icon className="text-primary" size={28} aria-hidden="true" />
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <CardTitle>{resource.title}</CardTitle>
+            <Badge variant="secondary" className="text-xs">
+              {resource.category}
+            </Badge>
+          </div>
+          <CardDescription className="mt-1">{resource.desc}</CardDescription>
+        </div>
+      </CardHeader>
+      <CardContent className="flex justify-end">
+        <Button asChild variant="ghost" className="gap-2 text-primary">
+          <a
+            href={resource.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Learn more about ${resource.title}`}
+          >
+            Learn More <ExternalLink size={14} aria-hidden="true" />
+          </a>
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function ReleasePage() {
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-12">
-      <header className="text-center space-y-4 max-w-2xl mx-auto">
-        <h1 className="text-4xl font-headline font-bold text-foreground">Beyond the Fence</h1>
-        <p className="text-muted-foreground text-lg">Your blueprint for a successful transition. We're here for your first day, and every day after.</p>
+      <header className="space-y-2">
+        <h1 className="text-3xl font-bold">Release Planning</h1>
+        <p className="text-muted-foreground">
+          Resources to help you plan for release and successful reentry.
+        </p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {resources.map((res) => (
-          <Card key={res.title} className="group hover:bg-primary/5 transition-colors cursor-pointer border-2 hover:border-primary/20">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                <res.icon className="text-primary" size={28} />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <CardTitle>{res.title}</CardTitle>
-                  <Badge variant="secondary" className="text-[10px]">{res.category}</Badge>
-                </div>
-                <CardDescription className="mt-1">{res.desc}</CardDescription>
-              </div>
-            </header>
-            <CardContent className="flex justify-end">
-              <Button variant="ghost" className="gap-2 text-primary">
-                Learn More <ExternalLink size={14} />
-              </Button>
-            </CardContent>
-          </Card>
+        {resources.map((resource) => (
+          <ResourceCard key={resource.id} resource={resource} />
         ))}
       </div>
-
-      <section className="bg-secondary/10 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8">
-        <div className="flex-1 space-y-4">
-          <Badge className="bg-secondary text-secondary-foreground">Mentorship Program</Badge>
-          <h2 className="text-3xl font-bold">Find Your Yard Buddy on the Outside</h2>
-          <p className="text-muted-foreground">Connect with individuals who have successfully transitioned. Get a mentor who understands your specific facility and journey.</p>
-          <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground gap-2">
-            <HeartHandshake size={18} /> Apply for Mentorship
-          </Button>
-        </div>
-        <div className="w-full md:w-1/3 aspect-video bg-muted rounded-xl flex items-center justify-center text-muted-foreground italic border-2 border-dashed">
-          Success Story Video Placeholder
-        </div>
-      </section>
-
-      <footer className="text-center text-xs text-muted-foreground mt-8">
-        All resources are vetted for inclusivity. ConvictConnect does not guarantee placement.
-      </footer>
     </div>
   );
 }
